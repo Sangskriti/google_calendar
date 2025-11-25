@@ -1,0 +1,12 @@
+import CalendarApp from "./components/CalendarApp"
+import "./components/CalendarApp.css"
+
+function App() {
+  return (
+    <div className="container">
+      <CalendarApp />
+    </div>
+  )
+}
+
+export default App

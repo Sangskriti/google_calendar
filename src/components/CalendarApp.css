@@ -1,0 +1,179 @@
+:root{
+  --bg: #f4f7fb;
+  --panel: #fff;
+  --text: #0f172a;
+  --muted: #6b7280;
+  --border: #e6eef8;
+  --primary: #1e88ff;
+  --accent: #e8f0ff;
+}
+[data-theme="dark"]{
+  --bg: #071022;
+  --panel: #071228;
+  --text: #e6eef8;
+  --muted: #94a3b8;
+  --border: #10243a;
+  --primary: #4da3ff;
+  --accent: #072230;
+}
+
+*{box-sizing:border-box}
+body{background:var(--bg); color:var(--text); font-family:Inter,system-ui,Segoe UI,Roboto,Arial;margin:0;padding:0}
+
+.gc-wrapper{min-height:100vh}
+.gc-header{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;gap:12px}
+.gc-header .left{display:flex;align-items:center;gap:16px}
+.gc-header h2{margin:0}
+.controls button{margin-right:8px;padding:6px 10px;border-radius:6px;border:1px solid var(--border);background:transparent;cursor:pointer}
+.controls .active{background:var(--primary);color:white;border:none}
+
+.gc-main{display:grid;grid-template-columns:260px 1fr 320px;gap:16px;padding:12px 20px 40px}
+.gc-side, .gc-right{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:12px}
+.gc-body{min-height:600px}
+
+.cal-row{display:flex;align-items:center;margin-bottom:8px}
+.cal-row label{display:flex;align-items:center;gap:8px;cursor:pointer}
+.swatch{width:14px;height:14px;border-radius:4px;display:inline-block;box-shadow:0 0 0 2px rgba(0,0,0,0.03)}
+
+.new-cal{display:flex;gap:8px;align-items:center;margin-top:8px}
+.new-cal input[type="color"]{width:40px;height:28px;padding:0;border:none}
+
+.muted{color:var(--muted)}
+.up-item{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px dashed var(--border)}
+.up-time{width:56px;font-weight:600}
+.up-cal{width:10px;height:10px;border-radius:3px;margin-left:auto}
+
+/* grid styles */
+.grid.month{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.grid.week{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.grid.day{display:grid;grid-template-columns:1fr;gap:8px}
+
+.cell{min-height:120px;border-radius:8px;position:relative;overflow:hidden}
+.blank{background:transparent}
+
+.date-cell{background:var(--panel);border:1px solid var(--border);padding:8px;display:flex;flex-direction:column}
+.cell-header{display:flex;align-items:center;justify-content:space-between;gap:8px}
+
+/* left and right side containers to hold buttons */
+.date-side{display:flex;align-items:center;gap:6px;min-width:56px;justify-content:center}
+.date-side.left{justify-content:flex-start}
+.date-side.right{justify-content:flex-end}
+
+/* center date number area */
+.date-center{flex:1;display:flex;justify-content:center;align-items:center}
+.date-num{font-weight:700;font-size:14px}
+
+/* small round/soft buttons */
+.side-btn{display:inline-flex;align-items:center;justify-content:center;padding:4px 8px;border-radius:6px;border:1px solid var(--border);background:transparent;cursor:pointer;font-size:14px;line-height:1}
+.side-btn.small{padding:4px 6px;font-size:13px}
+.side-btn:hover{background:rgba(0,0,0,0.04)}
+
+.cell-events{margin-top:8px;display:flex;flex-direction:column;gap:6px}
+.event-pill{display:flex;align-items:center;justify-content:space-between;padding:8px;border-radius:8px;background:linear-gradient(90deg, rgba(30,136,255,0.06), transparent);border:1px solid rgba(30,136,255,0.06);cursor:grab}
+.event-pill:active{cursor:grabbing}
+.ev-left{display:flex;gap:8px;align-items:center;overflow:hidden}
+.ev-time{font-weight:700;width:60px;flex-shrink:0}
+.ev-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ev-actions{display:flex;gap:6px}
+.icon-btn{background:transparent;border:none;cursor:pointer;padding:4px;border-radius:6px}
+.icon-btn svg{display:block;stroke:var(--text);width:16px;height:16px}
+
+/* right panel selected day events */
+.selected-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.event-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:10px;border-radius:8px;border:1px solid var(--border);background:linear-gradient(180deg, rgba(0,0,0,0.02), transparent);margin-bottom:8px}
+.event-row .time{font-weight:700}
+.row-actions .icon-btn{margin-left:6px}
+
+/* popup */
+.popup-wrap{position:fixed;inset:0;background:rgba(2,6,23,0.6);display:flex;align-items:center;justify-content:center;z-index:1000}
+.popup-card{width:420px;background:var(--panel);border:1px solid var(--border);padding:16px;border-radius:10px}
+.popup-card label{display:block;margin-bottom:8px;font-size:13px}
+.popup-card input[type="date"], .popup-card input[type="time"], .popup-card input[type="text"], .popup-card select, .popup-card input[type="number"]{width:100%;padding:8px;border-radius:6px;border:1px solid var(--border);margin-top:6px}
+.popup-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:8px}
+.btn{padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:transparent;cursor:pointer}
+.btn.primary{background:var(--primary);color:white;border:none}
+
+/* Weekdays container */
+.weekdays-row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* 7 equal columns */
+  background: #f7f7f7;
+  border-bottom: 1px solid #dadce0;
+  border-top: 1px solid #dadce0;
+}
+
+/* Each weekday cell */
+.weekday {
+  padding: 12px 0;
+  text-align: center;
+  font-weight: 600;
+  font-size: 14px;
+  border-right: 1px solid #e3e3e3;
+  color: #5f6368;
+  letter-spacing: 0.3px;
+}
+
+.weekday:last-child {
+  border-right: none;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;   
+  align-items: center;      
+  gap: 12px;                
+}
+
+.theme-btn {
+  background: var(--hover);
+  border: 1px solid var(--border);
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.theme-btn:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.nav button {
+  background: var(--hover);
+  border: 1px solid var(--border);
+  padding: 6px 12px;
+  border-radius: 6px;
+}
+
+.nav button:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+.nav .title {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+
+
+/* responsiveness */
+@media (max-width: 1000px){
+  .gc-main{grid-template-columns:1fr;padding:12px}
+  .gc-side, .gc-right{order:2}
+  .gc-body{order:1}
+  .date-side{min-width:40px}
+}
+
+@media (max-width: 720px) {
+  .nav { width: 220px; }
+  .nav button { width: 30px; height: 28px; }
+  .nav .title { font-size: 14px; }
+}
